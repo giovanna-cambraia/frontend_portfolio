@@ -12,6 +12,7 @@
     --second-bg-color: #101010;
     --text-color: #fff;
     --main-color:#C0FF00;
+    --tertiary-color: #5e725b56; 
 }
 
 html {
@@ -483,13 +484,21 @@ span {
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .education .timeline {
         margin-top: 2rem;
     }
     .education .timeline::after {
         left: 31px;
     }
+
+    .education .content {
+    background: var(--tertiary-color);
+    position: relative;
+    border-radius: 6px;
+    padding-right: 0.5rem;
+    }
+
     .education .container {
         width: 100%;
         padding-left: 8rem;
