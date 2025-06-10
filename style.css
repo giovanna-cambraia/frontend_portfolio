@@ -802,3 +802,9 @@ span {
     left: 0%;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  video {
+    cursor: pointer;
+  }
+}
