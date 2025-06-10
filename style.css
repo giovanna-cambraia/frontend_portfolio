@@ -492,6 +492,7 @@ span {
         left: 31px;
     }
 
+   
     .education .content {
     background: var(--tertiary-color);
     position: relative;
@@ -679,6 +680,7 @@ span {
 
 @media (max-width: 500px) {
 
+
   .heading {
     font-size: 4rem;
   }
@@ -792,14 +794,10 @@ span {
     left: 31px;
   }
 
-  .education .container {
-    width: 100%;
-    padding-left: 4rem;
-    padding-right: 2rem;
-  }
+
 
   .education .container::after {
-    font-size: 2.2rem;
+    font-size: 2.0rem;
   }
 
   .education .left::after,
@@ -810,7 +808,18 @@ span {
   .education .right {
     left: 0%;
   }
+
+   .education .content {
+    background: var(--tertiary-color);
+    position: relative;
+    border-radius: 6px;
+    padding-right: 0.5rem;
+    }
+
 }
+
+
+
 
 @media (hover: none) and (pointer: coarse) {
   video {
