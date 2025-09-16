@@ -129,9 +129,10 @@
               e integração com bancos de dados. Trabalho com Node.js,
               construindo servidores web, rotas, middlewares e manipulando
               requisições HTTP. Curto bastante usar Nest.js para estruturar
-              projetos de forma modular e escalável, e também já desenvolvi testes automatizados (usando
-              Jest) para garantir a qualidade e confiabilidade do código. Além
-              disso, sou familiarizada com Git Bash e versionamento de código.
+              projetos de forma modular e escalável, e também já desenvolvi
+              testes automatizados (usando Jest) para garantir a qualidade e
+              confiabilidade do código. Além disso, sou familiarizada com Git
+              Bash e versionamento de código.
             </p>
           </div>
         </div>
@@ -333,7 +334,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -364,11 +364,56 @@
       </form>
     </section>
 
+    <style>
+      #form-message {
+        margin-top: 10px;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      #form-message.success {
+        background-color: #1e3a8a; 
+        color: #d1fae5; 
+      }
+
+      #form-message.error {
+        background-color: #b91c1c; 
+        color: #fee2e2; 
+      }
+
+      #form-message {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      #form-message.hide {
+        opacity: 0;
+      }
+    </style>
+
     <script>
       const form = document.getElementById("contact-form");
+      const submitButton = form.querySelector("input[type='submit']");
+
+      let messageBox = document.getElementById("form-message");
+      if (!messageBox) {
+        messageBox = document.createElement("div");
+        messageBox.id = "form-message";
+        form.appendChild(messageBox);
+      }
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+    
+        if (form.phone.value && isNaN(form.phone.value)) {
+          messageBox.textContent = "Número inválido!";
+          messageBox.className = "error";
+          return;
+        }
 
         const formData = {
           name: form.name.value,
@@ -377,6 +422,12 @@
           phone: form.phone.value,
           subject: form.subject.value,
         };
+
+    
+        submitButton.disabled = true;
+        submitButton.value = "Enviando...";
+        messageBox.textContent = "";
+        messageBox.className = "";
 
         try {
           const response = await fetch(
@@ -389,14 +440,31 @@
           );
 
           if (response.ok) {
-            alert("Mensagem enviada com sucesso!");
+            messageBox.textContent = "Mensagem enviada com sucesso!";
+            messageBox.className = "success";
             form.reset();
+
+        
+            setTimeout(() => {
+              messageBox.classList.add("hide");
+              setTimeout(() => {
+                messageBox.textContent = "";
+                messageBox.className = "";
+              }, 500); 
+            }, 5000);
           } else {
-            alert("Falha ao enviar a mensagem.");
+            const result = await response.json();
+            messageBox.textContent =
+              result.message || "Falha ao enviar a mensagem.";
+            messageBox.className = "error";
           }
         } catch (error) {
-          alert("Erro ao enviar a mensagem.");
+          messageBox.textContent = "Erro ao enviar a mensagem.";
+          messageBox.className = "error";
           console.error(error);
+        } finally {
+          submitButton.disabled = false;
+          submitButton.value = "Me Mande Mensagem";
         }
       });
     </script>
